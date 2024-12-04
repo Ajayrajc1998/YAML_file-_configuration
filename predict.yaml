@@ -1,0 +1,12 @@
+hourly_data_path: 'electricityConsumptionAndProductioction.csv'
+daily_data_path: 'weather_2011-2021_Romania.csv'
+forecasted_daily_data_path: 'weather_test_small.csv'
+hourly_date_col: 'timestamp'
+daily_date_col: 'timestamp'
+hourly_feature_cols: ['Consumption', 'Production', 'Wind']
+daily_feature_cols: ['Temperature', 'Relative Humidity', 'Wind Speed']
+seq_length_hourly: 24
+seq_length_daily: 7
+target_col: 'Consumption'
+epochs: 10
+batch_size: 32
