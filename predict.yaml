@@ -1,11 +1,11 @@
 datasets:
   electricity_file: "electricityConsumptionAndProductioction.csv"  # Replace with your actual electricity data filename
-  weather_file: "weather_2011-2021_Romania.csv"          # Replace with your actual weather data filename
+  weather_file: "dailyweatherdataRomania.csv"          # Replace with your actual weather data filename
 
 training:
   date_column:
     electricity: "timestamp"                # Replace with the actual datetime column name in electricity data
-    weather: "timestamp"                   # Replace with the actual datetime column name in weather data
+    weather: "Date time"                   # Replace with the actual datetime column name in weather data
   columns:
     electricityConsumptionAndProductioction.csv:                  # Replace with your actual electricity file name
       - "Consumption"                      # Replace with the required columns for the electricity dataset
@@ -16,7 +16,7 @@ training:
       # - "Coal"
       # - "Solar"
       # - "Biomass"
-    weather_2011-2021_Romania.csv:                      # Replace with your actual weather file name
+    dailyweatherdataRomania.csv:                      # Replace with your actual weather file name
       - "Temperature"                      # Replace with the required columns for the weather dataset
       - "Dew Point"
       - "Relative Humidity"
