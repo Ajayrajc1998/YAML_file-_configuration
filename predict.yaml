@@ -1,34 +1,66 @@
 datasets:
-  electricity_file: "electricityConsumptionAndProductioction.csv"  # Replace with your actual electricity data filename
-  weather_file: "dailyweatherdataRomania.csv"          # Replace with your actual weather data filename
+  inputs:
+    - file: "inrusd.csv"
+      datetime_column: "Date"
+      columns:
+        - "Close"
+        -  "Open"
+        - "High"
+        - "Low"
+        - "Volume"
+        - "Adj Close"
 
-training:
-  date_column:
-    electricity: "timestamp"                # Replace with the actual datetime column name in electricity data
-    weather: "Date time"                   # Replace with the actual datetime column name in weather data
-  columns:
-    electricityConsumptionAndProductioction.csv:                  # Replace with your actual electricity file name
-      - "Consumption"                      # Replace with the required columns for the electricity dataset
-      - "Nuclear"
-      - "Wind"
-      - "Hydroelectric"
-      - "Oil and Gas"
-      # - "Coal"
-      # - "Solar"
-      # - "Biomass"
-    dailyweatherdataRomania.csv:                      # Replace with your actual weather file name
-      - "Temperature"                      # Replace with the required columns for the weather dataset
-      - "Dew Point"
-      - "Relative Humidity"
-      - "Wind Speed"
+      # - "Consumption"
+      # - "Wind"
+      # - "Hydroelectric"
+      # - "Oil and Gas"
+
+       
+        # - 'close'
+        # - "open"
+        # - 'high'
+        # - 'volume'
+    - file: "gold.csv"
+      datetime_column: "Date"
+      columns:
+        - "Gold Price"
+        - "Open Gold price"
+        - "High Price"
+        - "Low Price"
+        - "Gold Volume"
+        - "Chg%"
+        #---------------------
+      # - "Maximum Temperature"
+      # - "Dew Point"
+      # - "Relative Humidity"
+      # - "Wind Speed"
       # - "Cloud Cover"
       # - "Visibility"
       # - "Sea Level Pressure"
-  target_column: "Consumption"             # Replace with the target column name in electricity data
-  sequence_length: 24                      # Sequence length for LSTM
-  batch_size: 32                           # Batch size for DataLoader
-  epochs: 10                               # Number of training epochs
-
+        #----------------
+          # - "Open"
+          # - "High"
+          # - "Low"
+          # - "Volume"
+  target_column: "Close"
+  target_dataset_index: 0 # Specify the index of the dataset containing the target column
+  secondary_dataset_granularity: 'D' # Specify the granularity
+splitting:
+  steps_for_training: 2199   # Number of daily data points for training
+  steps_for_prediction: 3   # N0umber of daily data points for prediction
+training:
+  sequence_length: 1
+  batch_size: 24
+  epochs: 10
+  density_ratio_number: 1 #  
 model:
-  lstm_units: 64                           # Number of LSTM units in the model
-  learning_rate: 0.001                     # Learning rate for the optimizer
+  lstm_units: 64
+  learning_rate: 0.001
+  train_mode: "both"  # Specify which mode to use: "high_density_only", "low_density_only", or "both"
+  test_mode: "low_density_only"
+results:
+  file: "results.yaml"
+  output_predictions: "predictions.csv"
+logging:
+  level: INFO
+  file: "training.log"
